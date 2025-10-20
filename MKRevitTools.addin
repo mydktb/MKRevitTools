@@ -1,0 +1,11 @@
+﻿<?xml version="1.0" encoding="utf-8" standalone="no"?>
+<RevitAddIns>
+	<AddIn Type="Application">
+		<Name>MKRevitTools</Name>
+		<Assembly>MKRevitTools.dll</Assembly>
+		<AddInId>0ACD2352-D283-4BAE-AC85-783BD9DA9634</AddInId>
+		<FullClassName>MKRevitTools.Application</FullClassName>
+		<VendorId>Muayyad Khatib</VendorId>
+		<VendorDescription>muayyad.khatib@gmail.com</VendorDescription>
+	</AddIn>
+</RevitAddIns>
