@@ -5,7 +5,7 @@ using System.ComponentModel;
 
 namespace MKRevitTools.UI
 {
-    public partial class ModernMainForm : Form
+    public partial class ModernMainForm : System.Windows.Forms.Form
     {
         private Panel mainPanel;
         private Label headerLabel;

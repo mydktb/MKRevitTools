@@ -12,16 +12,32 @@ namespace MKRevitTools
             // Create ribbon panel
             var panel = application.CreateRibbonPanel("MK Tools", "MK Revit Tools");
 
-            // NEW: Main Dashboard button - SIMPLIFIED VERSION
+            // Main Dash Board Button
             var mainButtonData = new PushButtonData(
                 "MainTools",
                 "MK Dashboard",
-                System.Reflection.Assembly.GetExecutingAssembly().Location,  // FIX: Use this method
-                "MKRevitTools.Commands.MainToolsCommand"  // FIX: Use string namespace
+                System.Reflection.Assembly.GetExecutingAssembly().Location,
+                "MKRevitTools.Commands.MainToolsCommand"
             );
             panel.AddItem(mainButtonData);
 
-            // EXISTING: Your direct sheet creation buttons - ALSO SIMPLIFIED
+            //
+            var deleteFiltersButtonData = new PushButtonData(
+                "DeleteFilters",
+                "Delete Filters",
+                System.Reflection.Assembly.GetExecutingAssembly().Location,
+                "MKRevitTools.Commands.DeleteFiltersCommand"
+            );
+            panel.AddItem(deleteFiltersButtonData);
+
+            var addFiltersToTemplateButtonData = new PushButtonData(
+                "AddFiltersToTemplate",
+                "Add Filters to Templates",
+                System.Reflection.Assembly.GetExecutingAssembly().Location,
+                "MKRevitTools.Commands.AddFiltersToViewTemplateCommand"
+            );
+            panel.AddItem(addFiltersToTemplateButtonData);
+
             var sheetsButtonData = new PushButtonData(
                 "CreateSheets",
                 "Create Sheets",
