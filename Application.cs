@@ -39,16 +39,16 @@ namespace MKRevitTools
             panel.AddItem(addFiltersToTemplateButtonData);
 
             var sheetsButtonData = new PushButtonData(
-                "CreateSheets",
-                "Create Sheets",
+                "CreateSheetsFromExcel",
+                "Create Sheets From Excel",
                 System.Reflection.Assembly.GetExecutingAssembly().Location,
                 "MKRevitTools.Commands.CreateSheetsFromExcelCommand"
             );
             panel.AddItem(sheetsButtonData);
 
             var createSheetsButtonData = new PushButtonData(
-                "CreateSheetsBasic",
-                "Create Sheets Basic",
+                "CreateMultipleSheets",
+                "Create Multiple Sheets",
                 System.Reflection.Assembly.GetExecutingAssembly().Location,
                 "MKRevitTools.Commands.CreateSheetsCommand"
             );

@@ -11,6 +11,7 @@ namespace MKRevitTools.UI
         private Document _document;
         private List<ParameterFilterElement> _matchingFilters;
 
+        // Declare all controls for designer support
         private System.Windows.Forms.Panel mainPanel;
         private System.Windows.Forms.Label titleLabel;
         private System.Windows.Forms.Label instructionLabel;
@@ -28,12 +29,12 @@ namespace MKRevitTools.UI
             _matchingFilters = new List<ParameterFilterElement>();
 
             InitializeComponent();
-            ApplyModernStyling();
+            ApplyThemeAtRuntime();
         }
 
         private void InitializeComponent()
         {
-            // Initialize components first
+            // Initialize all components
             this.mainPanel = new System.Windows.Forms.Panel();
             this.titleLabel = new System.Windows.Forms.Label();
             this.instructionLabel = new System.Windows.Forms.Label();
@@ -45,7 +46,6 @@ namespace MKRevitTools.UI
             this.deleteAllButton = new System.Windows.Forms.Button();
             this.closeButton = new System.Windows.Forms.Button();
 
-            // Main Panel
             this.mainPanel.SuspendLayout();
             this.SuspendLayout();
 
@@ -187,8 +187,10 @@ namespace MKRevitTools.UI
             // 
             // DeleteFiltersForm
             // 
+            this.BackColor = System.Drawing.Color.FromArgb(45, 45, 48);
             this.ClientSize = new System.Drawing.Size(500, 450);
             this.Controls.Add(this.mainPanel);
+            this.ForeColor = System.Drawing.Color.White;
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
             this.MaximizeBox = false;
             this.MinimizeBox = false;
@@ -201,10 +203,37 @@ namespace MKRevitTools.UI
             this.ResumeLayout(false);
         }
 
-        private void ApplyModernStyling()
+        private void ApplyThemeAtRuntime()
         {
-            this.BackColor = System.Drawing.Color.FromArgb(45, 45, 48);
-            this.ForeColor = System.Drawing.Color.White;
+            // Apply theme at runtime
+            this.BackColor = AppTheme.BackgroundColor;
+            this.ForeColor = AppTheme.TextColor;
+            this.Font = AppTheme.NormalFont;
+
+            // Apply theme to specific controls
+            titleLabel.ForeColor = AppTheme.AccentColor;
+            titleLabel.Font = AppTheme.HeaderFont;
+
+            instructionLabel.ForeColor = AppTheme.SecondaryTextColor;
+            resultsLabel.ForeColor = AppTheme.SecondaryTextColor;
+
+            searchTextBox.BackColor = AppTheme.PanelColor;
+            searchTextBox.ForeColor = AppTheme.TextColor;
+
+            filtersListBox.BackColor = AppTheme.PanelColor;
+            filtersListBox.ForeColor = AppTheme.TextColor;
+
+            searchButton.BackColor = AppTheme.AccentColor;
+            searchButton.ForeColor = AppTheme.TextColor;
+
+            deleteSelectedButton.BackColor = AppTheme.DangerColor;
+            deleteSelectedButton.ForeColor = AppTheme.TextColor;
+
+            deleteAllButton.BackColor = AppTheme.DangerColor;
+            deleteAllButton.ForeColor = AppTheme.TextColor;
+
+            closeButton.BackColor = AppTheme.PanelColor;
+            closeButton.ForeColor = AppTheme.TextColor;
         }
 
         private void SearchButton_Click(object sender, EventArgs e)
