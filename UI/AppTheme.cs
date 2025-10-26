@@ -14,11 +14,11 @@ namespace MKRevitTools.UI
         public static Color SecondaryTextColor = Color.LightGray;
         public static Color PlaceholderTextColor = Color.Gray;
 
-        // Fonts
+        // Fonts - Fixed initialization
         public static Font TitleFont = new Font("Segoe UI", 14F, FontStyle.Bold);
-        public static Font HeaderFont = new Font("Segoe UI", 16F, FontStyle.Bold);
-        public static Font NormalFont = new Font("Segoe UI", 9F);
-        public static Font SmallFont = new Font("Segoe UI", 8F);
+        public static Font HeaderFont = new Font("Segoe UI", 12F, FontStyle.Bold);
+        public static Font NormalFont = new Font("Segoe UI", 9F, FontStyle.Regular);
+        public static Font SmallFont = new Font("Segoe UI", 8F, FontStyle.Regular);
 
         // Sizes and Spacing
         public static Padding FormPadding = new Padding(20);
@@ -51,7 +51,8 @@ namespace MKRevitTools.UI
                 ForeColor = TextColor,
                 FlatStyle = FlatStyle.Flat,
                 Font = NormalFont,
-                Cursor = Cursors.Hand
+                Cursor = Cursors.Hand,
+                FlatAppearance = { BorderSize = 0 }
             };
 
             if (width > 0 && height > 0)
@@ -82,7 +83,8 @@ namespace MKRevitTools.UI
             {
                 BackColor = PanelColor,
                 ForeColor = TextColor,
-                BorderStyle = BorderStyle.FixedSingle
+                BorderStyle = BorderStyle.FixedSingle,
+                Font = NormalFont
             };
 
             if (!string.IsNullOrEmpty(placeholderText))
@@ -100,7 +102,8 @@ namespace MKRevitTools.UI
             {
                 BackColor = PanelColor,
                 ForeColor = TextColor,
-                BorderStyle = BorderStyle.FixedSingle
+                BorderStyle = BorderStyle.FixedSingle,
+                Font = NormalFont
             };
         }
 
@@ -132,7 +135,8 @@ namespace MKRevitTools.UI
             {
                 Text = text,
                 ForeColor = TextColor,
-                AutoSize = true
+                AutoSize = true,
+                Font = NormalFont
             };
         }
 
@@ -142,7 +146,8 @@ namespace MKRevitTools.UI
             {
                 Text = text,
                 ForeColor = SecondaryTextColor,
-                AutoSize = true
+                AutoSize = true,
+                Font = NormalFont
             };
         }
 

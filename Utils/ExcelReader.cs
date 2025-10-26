@@ -1,98 +1,70 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
-using System.Windows.Forms;
-using Autodesk.Revit.UI;
+using OfficeOpenXml;
 
-namespace MKRevitTools.Utils
+namespace MKRevitTools.Excel
 {
     public class ExcelReader
     {
-        public class SheetData
-        {
-            public string SheetNumber { get; set; }
-            public string SheetName { get; set; }
-            public string TitleBlock { get; set; }
-        }
-
-        public static List<SheetData> ReadSheetDataFromExcel()
-        {
-            List<SheetData> sheetDataList = new List<SheetData>();
-
-            try
-            {
-                // Let user choose between Excel and CSV
-                OpenFileDialog openFileDialog = new OpenFileDialog
-                {
-                    Filter = "Excel Files|*.xlsx;*.xls|CSV Files|*.csv|All Files|*.*",
-                    Title = "Select Excel or CSV File with Sheet Data"
-                };
-
-                if (openFileDialog.ShowDialog() != DialogResult.OK)
-                {
-                    return sheetDataList; // User cancelled
-                }
-
-                string filePath = openFileDialog.FileName;
-                string extension = Path.GetExtension(filePath).ToLower();
-
-                if (extension == ".csv")
-                {
-                    sheetDataList = ReadFromCsv(filePath);
-                }
-                else
-                {
-                    sheetDataList = ReadFromExcel(filePath);
-                }
-            }
-            catch (Exception ex)
-            {
-                TaskDialog.Show("File Read Error", $"Error reading file: {ex.Message}");
-            }
-
-            return sheetDataList;
-        }
-
-        private static List<SheetData> ReadFromCsv(string filePath)
+        public static List<SheetData> ReadSheetData(string filePath)
         {
             var sheetDataList = new List<SheetData>();
 
+            // Set EPPlus license context
+            ExcelPackage.LicenseContext = LicenseContext.NonCommercial;
+
             try
             {
-                string[] lines = File.ReadAllLines(filePath);
-
-                // Skip header row (if exists) and process data
-                for (int i = 1; i < lines.Length; i++)
+                using (var package = new ExcelPackage(new FileInfo(filePath)))
                 {
-                    string[] columns = lines[i].Split(',');
-
-                    if (columns.Length >= 1 && !string.IsNullOrWhiteSpace(columns[0]))
+                    foreach (var worksheet in package.Workbook.Worksheets)
                     {
-                        sheetDataList.Add(new SheetData
+                        // Skip hidden worksheets
+                        if (worksheet.Hidden != eWorkSheetHidden.Visible)
+                            continue;
+
+                        var sheetData = new SheetData
                         {
-                            SheetNumber = columns[0].Trim(),
-                            SheetName = columns.Length > 1 ? columns[1].Trim() : "",
-                            TitleBlock = columns.Length > 2 ? columns[2].Trim() : ""
-                        });
+                            SheetName = worksheet.Name,
+                            Rows = new List<List<string>>()
+                        };
+
+                        // Check if worksheet has data
+                        if (worksheet.Dimension != null)
+                        {
+                            int rowCount = worksheet.Dimension.Rows;
+                            int colCount = worksheet.Dimension.Columns;
+
+                            for (int row = 1; row <= rowCount; row++)
+                            {
+                                var currentRow = new List<string>();
+                                for (int col = 1; col <= colCount; col++)
+                                {
+                                    var cell = worksheet.Cells[row, col];
+                                    string value = cell.Text?.Trim() ?? string.Empty;
+                                    currentRow.Add(value);
+                                }
+                                sheetData.Rows.Add(currentRow);
+                            }
+                        }
+
+                        sheetDataList.Add(sheetData);
                     }
                 }
             }
             catch (Exception ex)
             {
-                TaskDialog.Show("CSV Read Error", $"Error reading CSV file: {ex.Message}");
+                throw new Exception($"Error reading Excel file: {ex.Message}", ex);
             }
 
             return sheetDataList;
         }
+    }
 
-        private static List<SheetData> ReadFromExcel(string filePath)
-        {
-            // For now, just show a message to use CSV
-            TaskDialog.Show("Excel Support",
-                "For full Excel support, please install Microsoft Access Database Engine.\n\n" +
-                "Alternatively, save your data as CSV file and try again.");
-
-            return new List<SheetData>();
-        }
+    public class SheetData
+    {
+        public string SheetName { get; set; }
+        public List<List<string>> Rows { get; set; }
     }
 }

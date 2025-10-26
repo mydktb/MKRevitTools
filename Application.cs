@@ -21,7 +21,7 @@ namespace MKRevitTools
             );
             panel.AddItem(mainButtonData);
 
-            //
+            // #1 Delete Filters Button
             var deleteFiltersButtonData = new PushButtonData(
                 "DeleteFilters",
                 "Delete Filters",
@@ -30,6 +30,7 @@ namespace MKRevitTools
             );
             panel.AddItem(deleteFiltersButtonData);
 
+            // #2 Add Filters to View Template Button
             var addFiltersToTemplateButtonData = new PushButtonData(
                 "AddFiltersToTemplate",
                 "Add Filters to Templates",
@@ -38,6 +39,7 @@ namespace MKRevitTools
             );
             panel.AddItem(addFiltersToTemplateButtonData);
 
+            // #3 Create Sheets from Excel Button
             var sheetsButtonData = new PushButtonData(
                 "CreateSheetsFromExcel",
                 "Create Sheets From Excel",
@@ -46,6 +48,7 @@ namespace MKRevitTools
             );
             panel.AddItem(sheetsButtonData);
 
+            // #4 Create Multiple Sheets Button
             var createSheetsButtonData = new PushButtonData(
                 "CreateMultipleSheets",
                 "Create Multiple Sheets",
@@ -54,6 +57,7 @@ namespace MKRevitTools
             );
             panel.AddItem(createSheetsButtonData);
 
+ 
             return Result.Succeeded;
         }
 
