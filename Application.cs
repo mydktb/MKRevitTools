@@ -12,14 +12,6 @@ namespace MKRevitTools
             // Create ribbon panel
             var panel = application.CreateRibbonPanel("MK Tools", "MK Revit Tools");
 
-            // Main Dash Board Button
-            var mainButtonData = new PushButtonData(
-                "MainTools",
-                "MK Dashboard",
-                System.Reflection.Assembly.GetExecutingAssembly().Location,
-                "MKRevitTools.Commands.MainToolsCommand"
-            );
-            panel.AddItem(mainButtonData);
 
             // #1 Delete Filters Button
             var deleteFiltersButtonData = new PushButtonData(
